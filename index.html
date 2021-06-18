@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="selectShareOption">Share Option</label> <br><br>
-                        <select  class="custom-select d-block w-100" id="selectShareOption"
+                        <select onchange="showShares()"  class="custom-select d-block w-100" id="selectShareOption"
                                 required>
 
                             <option selected="selected" value="null"> Select ...</option>
@@ -60,11 +60,20 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="interestRate">Interest Rate (%)</label><br><br>
-                        <input type="number" readonly="readonly" class="form-control" id="interestRate" placeholder="" value="20" required>
-                        <div class="invalid-feedback">
-                            Valid number is required.
+                        <div>
+                            <h6 class="my-0">Share Value </h6>
+                            <small class="text-muted">On Project Capital</small>
                         </div>
+                        <span class="text-muted" id="dividentValuePrincipal">R0.00</span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label for="interestRate">Interest Rate (%)</label><br><br>
+                    <input type="number" readonly="readonly" class="form-control" id="interestRate" placeholder="" value="20" required>
+                    <div class="invalid-feedback">
+                        Valid number is required.
                     </div>
                 </div>
 
@@ -93,13 +102,13 @@
                     </div>
                     <span class="text-muted" id="dividentValue">R0.00</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+               <!-- <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Share Value </h6>
                         <small class="text-muted">On Project Capital</small>
                     </div>
                     <span class="text-muted" id="dividentValuePrincipal">R0.00</span>
-                </li>
+                </li>-->
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Shares Available </h6>
@@ -190,7 +199,7 @@
         const dividend = calculateDividend(selectShareOption, compoundInterestResult);
         const dividentValuePrincipal = calculateDividend(selectShareOption, parseFloat(capitalAmount));
 
-        $("#dividentValue").text(accounting.formatMoney( accounting.formatMoney(compoundInterestResult)));
+        $("#dividentValue").text(accounting.formatMoney( accounting.formatMoney(compoundInterestResult - shareValue)));
 
         let res = capitalAmountInput / shareValue;
         res = res < 1 ? 0 : Math.ceil(res ) ;

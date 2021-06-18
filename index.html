@@ -46,10 +46,11 @@
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="selectShareOption">Share Option</label> <br><br>
-                        <select onchange="showShares()" class="custom-select d-block w-100" id="selectShareOption"
+                        <select  class="custom-select d-block w-100" id="selectShareOption"
                                 required>
 
-                            <option selected="selected" value="2"> Bronze</option>
+                            <option selected="selected" value="null"> Select ...</option>
+                            <option value="2"> Bronze</option>
                             <option value="3"> Silver</option>
                             <option value="4"> Gold</option>
                             <option value="5"> Platinum</option>
@@ -79,7 +80,7 @@
     <div class="row">
         <div class="col-md-6 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Results</span>Interest Rate
+                <span class="text-muted">Results</span>
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
             <ul class="list-group mb-3">
@@ -162,6 +163,7 @@
     };
 
     function calculate() {
+        showShares();
         let capitalAmount = $("#capitalAmount").val().trim();
         let capitalAmountInput = ($("#capitalAmountInput").val().trim());
        /* if (capitalAmountInput === '') {
@@ -203,7 +205,7 @@
     }
 
     let shareValue = 0;
-
+    let isInitialLoad = true;
     function showShares() {
         const val = $("#selectShareOption").val();
         if (val === '2') {
@@ -227,12 +229,13 @@
         $("#capitalAmount").val(shareValue+'');
 
         $("#dividentValuePrincipal").text(accounting.formatMoney(shareValue));
-
-        calculate()
-
+       /*if (!isInitialLoad){
+            calculate();
+        }*/
+        isInitialLoad =false
     }
 
-    showShares();
+    //showShares();
     /* (function() {
          'use strict';
 
